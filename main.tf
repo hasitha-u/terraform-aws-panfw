@@ -21,7 +21,7 @@ data "aws_ami" "this" {
 }
 
 resource "aws_network_interface" "this" {
-  for_each = { for k, v in var.interfaces : k => v }
+  for_each = { for i in var.interfaces : i.name => i }
 
   subnet_id         = each.value.subnet_id
   private_ips       = try([each.value.private_ip_address], null)
